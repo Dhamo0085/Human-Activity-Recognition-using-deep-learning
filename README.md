@@ -1,79 +1,54 @@
 # Deep Learning for Human Activity Recognition
 
-Deep learning represents a significant advancement in human activity recognition (HAR), leveraging the capabilities of neural networks to achieve superior performance compared to traditional methods. This repository provides a demonstration of HAR using both TensorFlow and PyTorch frameworks.
+> Deep learning is perhaps the nearest future of human activity recognition. While there are many existing non-deep method, we still want to unleash the full power of deep learning. This repo provides a demo of using deep learning to perform human activity recognition.
+
+**We support both Tensorflow and Pytorch.**
 
 ## Prerequisites
 
 - Python 3.x
 - Numpy
-- TensorFlow or PyTorch 1.0+
+- Tensorflow or Pytorch 1.0+
 
 ## Dataset
 
-There are several public datasets available for human activity recognition. For this demonstration, we use the UCI HAR dataset as an example. You can find more information about this dataset in this [survey article](https://www.mdpi.com/1424-8220/18/11/3603).
+There are many public datasets for human activity recognition. You can refer to this survey article [Deep learning for sensor-based activity recognition: a survey](https://arxiv.org/abs/1707.03502) to find more.
 
-We provide a preprocessed version of the dataset in `.npz` format for convenience, which you can download [here](link_to_your_preprocessed_dataset). However, we highly recommend downloading the original dataset to understand the preprocessing steps and explore the entire process firsthand.
+In this demo, we will use UCI HAR dataset as an example. This dataset can be found in [here](https://archive.ics.uci.edu/ml/machine-learning-databases/00240/).
 
-### Dataset Details
+Of course, this dataset needs further preprocessing before being put into the network. I've also provided a preprocessing version of the dataset as a `.npz` file so you can focus on the network (download [HERE](https://pan.baidu.com/s/1Nx7UcPqmXVQgNVZv4Ec1yg)). It is also highly recommended you download the dataset so that you can experience all the process on your own.
 
-- **Subjects**: 30
-- **Activities**: 6
-- **Frequency**: 50 Hz
+| #subject | #activity | Frequency |
+| --- | --- | --- |
+| 30 | 6 | 50 Hz |
 
 ## Usage
 
-### PyTorch
+- For Pytorch (recommend), go to `pytorch` folder, config the folder of your data in `config.py', and then run `main_pytorch.py`.
 
-1. Navigate to the `pytorch` folder.
-2. Configure the data folder path in `config.py`.
-3. Run `main_pytorch.py`.
+- For tensorflow, run `main_tensorflow.py` file. The update of tensorflow version is stopped since I personally like Pytorch.
 
-### TensorFlow
+## Network structure
 
-1. Run `main_tensorflow.py`.
-   
-**Note**: TensorFlow updates are no longer actively maintained in this repository; we recommend using PyTorch for ongoing development.
+What is the most influential deep structure? CNN it is. So we'll use **CNN** in our demo. 
 
-## Network Structure
+### CNN structure
 
-The core of our HAR model utilizes Convolutional Neural Networks (CNNs), which are well-suited for sequence and spatial data like sensor inputs.
+Convolution + pooling + convolution + pooling + dense + dense + dense + output
 
-### CNN Structure
+That is: 2 convolutions, 2 poolings, and 3 fully connected layers. 
 
-Our CNN architecture consists of:
+### About the inputs
 
-- Convolutional Layer + Pooling
-- Convolutional Layer + Pooling
-- Fully Connected (Dense) Layer
-- Fully Connected (Dense) Layer
-- Fully Connected (Dense) Layer (Output)
+That dataset contains 9 channels of the inputs: (acc_body, acc_total and acc_gyro) on x-y-z. So the input channel is 9.
 
-### Input Details
+Dataset providers have clipped the dataset using sliding window, so every 128 in `.txt` can be considered as an input. In real life, you need to first clipped the input using sliding window.
 
-The dataset includes 9 channels of inputs: accelerometer (body, total) and gyroscope readings on x-y-z axes. Each input file represents a channel, and sequences are segmented into windows of 128 samples.
+So in the end, we reformatted the inputs from 9 inputs files to 1 file, the shape of that file is `[n_sample,128,9]`, that is, every windows has 9 channels with each channel has length 128. When feeding it to Tensorflow, it has to be reshaped to `[n_sample,9,1,128]` as we expect there is 128 X 1 signals for every channel.
 
-### Data Format
-
-Inputs are reformatted to `[n_sample, 128, 9]`, where each window contains 9 channels, each with 128 samples. For TensorFlow, reshape inputs to `[n_sample, 9, 1, 128]`.
-
-## Results
-
-- **result.csv**: CSV file containing training and test accuracies across epochs.
-- **plot.png**: Plot showing the training and test accuracies over epochs.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- UCI Machine Learning Repository for providing the HAR dataset.
-- TensorFlow and PyTorch communities for their powerful deep learning frameworks.
-
-## Related Projects
-
-Explore these related projects and resources:
+## Related projects
 
 - [Must-read papers about deep learning based human activity recognition](https://github.com/jindongwang/activityrecognition/blob/master/notes/deep.md)
-- [LSTM-Human-Activity-Recognition](https://github.com/guillaume-chevalier/LSTM-Human-Activity-Recognition)
-- [Human-Activity-Recognition-using-CNN](https://github.com/aqibsaeed/Human-Activity-Recognition-using-CNN)
+- [guillaume-chevalier/LSTM-Human-Activity-Recognition](https://github.com/guillaume-chevalier/LSTM-Human-Activity-Recognition)
+- [aqibsaeed/Human-Activity-Recognition-using-CNN](https://github.com/aqibsaeed/Human-Activity-Recognition-using-CNN)
+
