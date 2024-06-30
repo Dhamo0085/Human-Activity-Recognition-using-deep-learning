@@ -14,7 +14,7 @@
 
 There are many public datasets for human activity recognition. You can refer to this survey article [Deep learning for sensor-based activity recognition: a survey](https://arxiv.org/abs/1707.03502) to find more.
 
-In this demo, we will use UCI HAR dataset as an example. Of course, this dataset needs further preprocessing before being put into the network. I've also provided a preprocessing version of the dataset as a `.npz` file so you can focus on the network (download [HERE](https://pan.baidu.com/s/1Nx7UcPqmXVQgNVZv4Ec1yg)). It is also highly recommended you download the dataset so that you can experience all the process on your own.
+In this demo, we will use UCI HAR dataset as an example. Of course, this dataset needs further preprocessing before being put into the network. I've also provided a preprocessing version of the dataset as a `.npz` file so you can focus on the network (download [HERE](https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones)). It is also highly recommended you download the dataset so that you can experience all the process on your own.
 
 | #subject | #activity | Frequency |
 | --- | --- | --- |
